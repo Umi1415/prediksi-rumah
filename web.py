@@ -2,6 +2,7 @@ import pickle
 import streamlit as st
 import pandas as pd
 import numpy as np
+import scikit-learn
 
 model_data = pickle.load(open('model_prediksi_harga_rumah.sav', 'rb'))
 model_regresi = model_data['model']
