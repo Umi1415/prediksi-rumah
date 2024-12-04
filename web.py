@@ -1,4 +1,5 @@
 import pickle
+from matplotlib import pyplot as plt
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -24,9 +25,9 @@ image = Image.open('icon.jpg')
 with st.sidebar:
     st.image(image, use_container_width=True)
     st.markdown("### MENU")
-    if st.button("🏡 Beranda\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
+    if st.button("🏡 Beranda\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Home"
-    if st.button("📊 Dataset (CSV)\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
+    if st.button("📊 Dataset (CSV)\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Dataset"
     if st.button("📈 Visualization\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Visualization"
@@ -132,6 +133,21 @@ elif st.session_state["page"] == "Visualization":
 
     st.subheader("Grafik Harga Rumah")
     st.line_chart(df['HARGA'])
+
+    X = df[['LB', 'LT', 'KT', 'KM', 'GRS']]
+    y_actual = df['HARGA']
+    
+    X_scaled = scaler.transform(X)
+    X_poly = poly.transform(X_scaled)
+    y_predicted = np.exp(model_regresi.predict(X_poly))
+    
+    comparison_df = pd.DataFrame({
+        'Harga Aktual': y_actual,
+        'Harga Prediksi': y_predicted
+    })
+
+    st.write("Scatter plot berikut menunjukkan hubungan antara harga aktual dan prediksi:")
+    st.scatter_chart(comparison_df)
 
 elif st.session_state["page"] == "Prediction":
     st.title("Prediksi Harga Rumah")
