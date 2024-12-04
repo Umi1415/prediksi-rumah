@@ -30,6 +30,8 @@ with st.sidebar:
         st.session_state["page"] = "Prediction"
     if st.button("ℹ️ About\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2002"):
         st.session_state["page"] = "About"
+    if st.button("🔬 Methods & Model\u2003\u2003\u2003\u2003\u2003\u2003"):
+        st.session_state["page"] = "Methods"
 
 # Display page content based on selected page
 if st.session_state["page"] == "Home":
@@ -99,3 +101,59 @@ elif st.session_state["page"] == "About":
     st.write("- Muhammad Ikhsan Dea Aldiansyah (233307108)")
     st.write("- Umi Latifah Nurhaliza Agustin (233307117)")
     st.write("- Warda Imana (233307118)")
+
+elif st.session_state["page"] == "Methods":
+    st.title("Metode dan Cara Kerja Model")
+    
+    st.header("Dataset")
+    st.write("""
+    Dataset yang digunakan dalam model ini terdiri dari 1010 data rumah di kawasan Tebet dan Jakarta Selatan dengan informasi:
+    - Luas Bangunan (LB)
+    - Luas Tanah (LT)
+    - Jumlah Kamar Tidur (KT)
+    - Jumlah Kamar Mandi (KM)
+    - Jumlah Garasi (GRS)
+    - Harga Rumah
+    """)
+    
+    st.header("Preprocessing Data")
+    st.write("""
+    1. **Standardisasi Fitur**: Menggunakan StandardScaler untuk menormalkan semua fitur input ke skala yang sama
+    2. **Transformasi Polinomial**: Menggunakan PolynomialFeatures untuk menangkap hubungan non-linear antar fitur
+    3. **Logaritmik Transform**: Menerapkan transformasi log pada harga rumah untuk menstabilkan varians
+    """)
+    
+    st.header("Model Machine Learning")
+    st.write("""
+    Model yang digunakan adalah **Linear Regression** dengan karakteristik:
+    - Menggunakan 5 fitur input (LB, LT, KT, KM, GRS)
+    - Transformasi polinomial degree 2 untuk menangkap hubungan non-linear
+    - Cross-validation dengan 5 fold untuk validasi model
+    """)
+    
+    st.header("Performa Model")
+    st.write("""
+    Berdasarkan evaluasi model, diperoleh:
+    - R-squared Score: 0.8278 (82.78% varians dapat dijelaskan oleh model)
+    - Mean Percentage Error: 23.98%
+    - Cross-validation Score: 0.7658
+    
+    Ini menunjukkan bahwa model memiliki kemampuan prediksi yang cukup baik untuk estimasi harga rumah.
+    """)
+    
+    st.header("Cara Kerja Prediksi")
+    st.write("""
+    1. User memasukkan data properti (LB, LT, KT, KM, GRS)
+    2. Data dinormalisasi menggunakan StandardScaler
+    3. Fitur ditransformasi menggunakan PolynomialFeatures
+    4. Model melakukan prediksi harga dalam skala logaritmik
+    5. Hasil prediksi ditransformasi balik ke nilai rupiah
+    """)
+    
+    st.header("Batasan Model")
+    st.write("""
+    - Model hanya akurat untuk properti di kawasan Tebet dan Jakarta Selatan
+    - Prediksi paling akurat untuk rumah dengan karakteristik yang mirip dengan data training
+    - Faktor eksternal seperti lokasi spesifik, kondisi rumah, dan tren pasar tidak diperhitungkan
+    - Margin error sekitar 24% perlu dipertimbangkan dalam interpretasi hasil
+    """)
