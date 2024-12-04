@@ -20,31 +20,31 @@ if "page" not in st.session_state:
 # Navigasi sidebar
 with st.sidebar:
     st.markdown("### MENU")
-    if st.button("🏡 Home\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
+    if st.button("🏡 Beranda\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Home"
     if st.button("📈 Dataset (CSV)\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Dataset"
-    if st.button("🔄 Visualization\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
+    if st.button("📈 Visualization\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Visualization"
-    if st.button("🏢 Prediksi Harga Rumah\u2003\u2003\u2003\u2003\u2003"):
+    if st.button("💵 Prediksi Harga Rumah\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Prediction"
+    if st.button("🔎 Penjelasan aplikasi\u2003\u2003\u2003\u2003\u2003\u2003"):
+        st.session_state["page"] = "Methods"
     if st.button("ℹ️ About\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2002"):
         st.session_state["page"] = "About"
-    if st.button("🔬 Metode & Model\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
-        st.session_state["page"] = "Methods"
-    if st.button("📊 Evaluation\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
-        st.session_state["page"] = "Evaluation"
 
 # Display page content based on selected page
 if st.session_state["page"] == "Home":
     st.title("Prediksi Harga Rumah")
-    st.header("Selamat Datang di Aplikasi Prediksi Harga Rumah")
+    st.markdown("---")
+    st.header("Selamat Datang di Aplikasi Prediksi Harga Rumah!")
     st.write("Website ini dirancang untuk membantu pengguna memprediksi harga rumah di kawasan Tebet dan Jakarta Selatan.")
 
     image_path = "rumah.jpg"
     st.image(image_path, caption="Gambar rumah", use_container_width=True)
 
-    st.subheader("Fitur Utama")
+
+    st.header("Fitur Utama")
     st.markdown("""
         - **Dataset (CSV):** Menampilkan dataset properti yang digunakan sebagai pelatihan model.
         - **Visualization:** Grafik dan tren properti untuk analisis lebih lanjut.
@@ -60,11 +60,12 @@ elif st.session_state["page"] == "Dataset":
     st.dataframe(df)
 
     st.write("Keterangan Kolom:")
-    st.write("- **LB (Luas Bangunan):** Area bangunan dalam meter persegi.")
-    st.write("- **LT (Luas Tanah):** Area tanah dalam meter persegi.")
-    st.write("- **KT (Kamar Tidur):** Jumlah kamar tidur.")
-    st.write("- **KM (Kamar Mandi):** Jumlah kamar mandi.")
-    st.write("- **GRS (Garasi):** Jumlah garasi.")
+    st.markdown("""""
+        - **LB (Luas Bangunan):** Area bangunan dalam meter persegi.
+        - **LT (Luas Tanah):** Area tanah dalam meter persegi.
+        - **KT (Kamar Tidur):** Jumlah kamar tidur.
+        - **KM (Kamar Mandi):** Jumlah kamar mandi.
+        - **GRS (Garasi):** Jumlah garasi.""""")
 
 elif st.session_state["page"] == "Visualization":
     st.title("Visualisasi Data")
