@@ -32,6 +32,8 @@ with st.sidebar:
         st.session_state["page"] = "About"
     if st.button("🔬 Metode & Model\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Methods"
+    if st.button("📊 Evaluation\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
+        st.session_state["page"] = "Evaluation"
 
 # Display page content based on selected page
 if st.session_state["page"] == "Home":
@@ -156,4 +158,27 @@ elif st.session_state["page"] == "Methods":
     - Prediksi paling akurat untuk rumah dengan karakteristik yang mirip dengan data training
     - Faktor eksternal seperti lokasi spesifik, kondisi rumah, dan tren pasar tidak diperhitungkan
     - Margin error sekitar 24% perlu dipertimbangkan dalam interpretasi hasil
+    """)
+
+elif st.session_state["page"] == "Evaluation":
+    st.title("Evaluasi Model Prediksi Harga Rumah")
+    
+    st.header("Metode Evaluasi")
+    st.write("""
+    Model dievaluasi menggunakan beberapa metrik untuk memastikan akurasi dan keandalannya:
+    - **R-squared Score**: Mengukur seberapa baik varians data dapat dijelaskan oleh model.
+    - **Mean Absolute Error (MAE)**: Rata-rata kesalahan absolut antara prediksi dan nilai sebenarnya.
+    - **Root Mean Squared Error (RMSE)**: Akar dari rata-rata kesalahan kuadrat antara prediksi dan nilai sebenarnya.
+    - **Mean Percentage Error**: Rata-rata kesalahan persentase antara prediksi dan nilai sebenarnya.
+    """)
+    
+    st.header("Hasil Evaluasi")
+    st.write("""
+    Berdasarkan evaluasi model, diperoleh hasil sebagai berikut:
+    - **R-squared Score**: 0.8278
+    - **Mean Absolute Error (MAE)**: Rp 1.25
+    - **Root Mean Squared Error (RMSE)**: Rp 1.35
+    - **Mean Percentage Error**: 23.98%
+    
+    Hasil ini menunjukkan bahwa model memiliki kemampuan prediksi yang cukup baik untuk estimasi harga rumah.
     """)
