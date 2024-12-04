@@ -20,17 +20,17 @@ if "page" not in st.session_state:
 # Navigasi sidebar
 with st.sidebar:
     st.markdown("### MENU")
-    if st.button("🏡 Home\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
+    if st.button("🏡 Home\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Home"
-    if st.button("📊 Dataset (CSV)\u2003\u2003\u2003\u2003"):
+    if st.button("📈 Dataset (CSV)\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Dataset"
-    if st.button("📈 Visualization\u2003\u2003\u2003\u2003\u2003"):
+    if st.button("🔄 Visualization\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Visualization"
-    if st.button("🏢 Prediksi Harga Rumah\u2003"):
+    if st.button("🏢 Prediksi Harga Rumah\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Prediction"
-    if st.button("ℹ️ About\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
+    if st.button("ℹ️ About\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2002"):
         st.session_state["page"] = "About"
-    if st.button("🔬 Methods & Model\u2003\u2003\u2003"):
+    if st.button("🔬 Metode & Model\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Methods"
 
 # Display page content based on selected page
