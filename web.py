@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import sklearn
+from PIL import Image
 
 # Load model data
 model_data = pickle.load(open('model_prediksi_harga_rumah.sav', 'rb'))
@@ -18,11 +19,14 @@ if "page" not in st.session_state:
     st.session_state["page"] = "Home"
 
 # Navigasi sidebar
+image = Image.open('icon.jpg')
+
 with st.sidebar:
+    st.image(image, use_container_width=True)
     st.markdown("### MENU")
     if st.button("🏡 Beranda\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Home"
-    if st.button("📈 Dataset (CSV)\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
+    if st.button("📊 Dataset (CSV)\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Dataset"
     if st.button("📈 Visualization\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Visualization"
@@ -30,45 +34,94 @@ with st.sidebar:
         st.session_state["page"] = "Prediction"
     if st.button("🔎 Penjelasan aplikasi\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "Methods"
-    if st.button("ℹ️ About\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2002"):
+    if st.button("ℹ️ Tentang kami\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003"):
         st.session_state["page"] = "About"
+
+st.markdown(
+    """
+    <style>
+        .stApp {
+            background: #F0F3FA;
+            color: #395886;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Display page content based on selected page
 if st.session_state["page"] == "Home":
-    st.title("Prediksi Harga Rumah")
+    st.markdown(""" 
+    <div style="text-align: center; font-size: 50px; font-weight: bold;">
+    Prediksi Harga Rumah
+    </div>
+    """, unsafe_allow_html=True)
+
     st.markdown("---")
     st.header("Selamat Datang di Aplikasi Prediksi Harga Rumah!")
-    st.write("Website ini dirancang untuk membantu pengguna memprediksi harga rumah di kawasan Tebet dan Jakarta Selatan.")
-
     image_path = "rumah.jpg"
-    st.image(image_path, caption="Gambar rumah", use_container_width=True)
+    st.image(image_path, use_container_width=True)
 
-
-    st.header("Fitur Utama")
-    st.markdown("""
-        - **Dataset (CSV):** Menampilkan dataset properti yang digunakan sebagai pelatihan model.
-        - **Visualization:** Grafik dan tren properti untuk analisis lebih lanjut.
-        - **Prediksi Harga Rumah:** Perhitungan harga rumah berdasarkan input data spesifik pengguna.
-        - **About:** Informasi tentang aplikasi ini dan pembuatnya.
+    st.write("Website kami, berfokus pada prediksi harga rumah khususnya pada wilayah Tebet dan Jakarta Selatan. Dengan fitur yang tersedia, kami menyediakan informasi yang berguna bagi pembeli, penjual dan investor.")
+    st.header("💡 Fitur Utama")
+    st.info("""
+        - **Dataset (CSV):** Menampilkan dataset rumah yang berisikan informasi seperti luas bangunan, luas tanah, jumlah kamar, dan harga rumah. 
+        - **Visualization:** Visualisasi data berupa grafik kepada pelanggan.
+        - **Prediksi Harga Rumah:** Perhitungan harga rumah berdasarkan input data spesifik dari pengguna.
+        - **Penjelasan aplikasi:** Informasi mengenai cara kerja dari website dan metode yang digunakan.
     """)
+
+    st.header("💡Tujuan dan Manfaat")
+    st.subheader("**Tujuan**")
+    st.markdown("""
+        - Membantu memahami harga pasar melalui grafik dan dataset yang tersedia
+        - Menyediakan alat perhitungan yang berguna untuk memprediksi harga rumah dengan lebih akurat
+        - Menambah wawasan mengenai faktor yang memengaruhi harga rumah
+        - Mempermudah analisis tren harga berdasarkan historis
+    """)
+    st.subheader("**Manfaat**")
+    st.markdown("""
+        - Mencari rumah yang sesuai dengan anggaran yang dimiliki
+        - Mendapatkan referensi harga rumah sesuai dengan spesifikasi yang diinginkan
+        - Membantu pengambilan keputusan berdasarkan data
+        - Mengurangi risiko kesalahan pembelian rumah
+    """)
+
+    st.header("🔎Cara penggunaan")
+    st.subheader("1. Cari referensi")
+    st.write("""
+        - Pilih menu **Dataset(CSV)**
+        - Lihat referensi harga, dan spesifikasi rumah pada dataset yang tersedia
+        - Pilih menu **Visualization**
+        - Lihat grafik untuk melihat dan memahami spesifikasi rumah 
+    """)
+    st.subheader("2. Lakukan perhitungan")
+    st.write("""
+        - Pilih menu **Prediksi harga rumah**
+        - Masukkan data kedalam kolom yang tersedia (Luas bangunan, Luas tanah, Jumlah kamar tidur, Jumlah kamar mandi, Jumlah garasi)
+        - Dapatkan prediksi harga sesuai dengan data yang dimasukkan
+    """)
+
+    st.write("Aplikasi ini tidak hanya mempermudah Anda dalam memahami pasar properti, tetapi juga membantu dalam perencanaan keuangan dan pengambilan keputusan yang lebih baik. Mari mulai perjalanan Anda menuju rumah impian dengan data yang akurat dan prediksi yang cerdas!")
 
 elif st.session_state["page"] == "Dataset":
     st.title("Dataset Properti")
-    st.write("Menampilkan dataset yang digunakan untuk melatih model prediksi.")
-
+    st.markdown("---")
     df = pd.read_csv("Data_rumah.csv")
     st.dataframe(df)
 
     st.write("Keterangan Kolom:")
-    st.markdown("""""
+    st.markdown("""
         - **LB (Luas Bangunan):** Area bangunan dalam meter persegi.
         - **LT (Luas Tanah):** Area tanah dalam meter persegi.
         - **KT (Kamar Tidur):** Jumlah kamar tidur.
         - **KM (Kamar Mandi):** Jumlah kamar mandi.
-        - **GRS (Garasi):** Jumlah garasi.""""")
+        - **GRS (Garasi):** Jumlah garasi.
+    """)
 
 elif st.session_state["page"] == "Visualization":
     st.title("Visualisasi Data")
+    st.markdown("---")
     df = pd.read_csv("Data_rumah.csv")
 
     st.subheader("Grafik Luas Tanah")
@@ -82,7 +135,7 @@ elif st.session_state["page"] == "Visualization":
 
 elif st.session_state["page"] == "Prediction":
     st.title("Prediksi Harga Rumah")
-
+    st.markdown("---")
     building_area = st.number_input('Luas Bangunan (m²):', min_value=0, step=1)
     land_area = st.number_input('Luas Tanah (m²):', min_value=0, step=1)
     bedrooms = st.number_input('Jumlah Kamar Tidur:', min_value=0, step=1)
@@ -98,16 +151,17 @@ elif st.session_state["page"] == "Prediction":
 
 elif st.session_state["page"] == "About":
     st.title("Tentang Kami")
+    st.markdown("---")
     st.write("Website ini dibuat oleh kelompok 4 untuk mempermudah estimasi harga rumah di Jakarta Selatan.")
-    st.write("**Anggota Tim:**")
-    st.write("- Adi Alam Sami Aji (233307091)")
-    st.write("- Muhammad Ikhsan Dea Aldiansyah (233307108)")
-    st.write("- Umi Latifah Nurhaliza Agustin (233307117)")
-    st.write("- Warda Imana (233307118)")
+    st.subheader("**Anggota Tim:**")
+    st.write("- **Adi Alam Sami Aji** (233307091)")
+    st.write("- **Muhammad Ikhsan Dea Aldiansyah** (233307108)")
+    st.write("- **Umi Latifah Nurhaliza Agustin** (233307117)")
+    st.write("- **Warda Imana** (233307118)")
 
 elif st.session_state["page"] == "Methods":
     st.title("Metode dan Cara Kerja Model")
-    
+    st.markdown("---")
     st.header("Dataset")
     st.write("""
     Dataset yang digunakan dalam model ini terdiri dari 1010 data rumah di kawasan Tebet dan Jakarta Selatan dengan informasi:
@@ -183,3 +237,5 @@ elif st.session_state["page"] == "Evaluation":
     
     Hasil ini menunjukkan bahwa model memiliki kemampuan prediksi yang cukup baik untuk estimasi harga rumah.
     """)
+st.markdown("---")
+st.write("Oleh kelompok 4")
